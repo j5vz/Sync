@@ -6,4 +6,4 @@ Nothing is obfuscated, and Sync is free to use, can be forked and can be distrib
 Sync is fUD (Fully Undetected), as it uses the Drawing Libraries in executors for the visuals. You are not expected to be detected using Sync.
 
 ![](https://github.com/j5vz/Sync/blob/main/example.mp4)
-The video may not load somnetimes, so download it if it cant load the embedˆˆˆ
+The video may not load sometimes, so download it if it cant load the embedˆˆˆ

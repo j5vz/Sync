@@ -9,5 +9,5 @@ Sync is fUD (Fully Undetected), as it uses the Drawing Libraries in executors fo
 The video may not load sometimes, so download it if it cant load the embedˆˆˆ
 
 # Features
-The features in Sync are simple.
+The features in Sync are simple.</p>
  Press P for Team-Based PvP games (your aimbot locks on people that are not from your team.)

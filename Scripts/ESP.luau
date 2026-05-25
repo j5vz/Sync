@@ -89,8 +89,16 @@ local function updateESP()
                 local width = maxX - minX
                 local height = maxY - minY
 
+                local boxColor = Color3.fromRGB(255, 100, 100)
+                local barColor = Color3.fromRGB(255, 50, 50)
+                if player.Team then
+                    boxColor = player.TeamColor.Color
+                    barColor = player.TeamColor.Color
+                end
+
                 esp.box.Size = Vector2.new(width, height)
                 esp.box.Position = Vector2.new(minX, minY)
+                esp.box.Color = boxColor
                 esp.box.Visible = true
 
                 local barWidth = math.clamp(width * 0.08, 6, 12)
@@ -107,6 +115,7 @@ local function updateESP()
                 -- i was planning to add text saying "HP" ontop of this but the drawing lib didnt let me turn the text to 90° so fuc that
                 esp.hpBar.Size = Vector2.new(barWidth, barHeight)
                 esp.hpBar.Position = Vector2.new(barX, minY + (height - barHeight))
+                esp.hpBar.Color = barColor
                 esp.hpBar.Visible = true
 
                 esp.name.Position = Vector2.new(minX + (width / 2), minY - 22)

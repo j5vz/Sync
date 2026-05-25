@@ -1,12 +1,14 @@
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 
 local localPlayer = Players.LocalPlayer
 local camera = Workspace.CurrentCamera
 
 local FOV_RADIUS = 150
 local SMOOTHNESS = 0.4
+local teamCheckEnabled = false
 
 -- i was actually planning to add a semi-circle hp bar to this but i got lazy as fuck
 local fovCircle = Drawing.new("Circle")
@@ -48,6 +50,10 @@ local function getClosestPlayerInFOV()
 	
 	for _, player in ipairs(Players:GetPlayers()) do
 		if player ~= localPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+			if teamCheckEnabled and player.Team == localPlayer.Team then
+				continue
+			end
+
 			local hrp = player.Character.HumanoidRootPart
 			local screenPos, onScreen = camera:WorldToViewportPoint(hrp.Position)
 			
@@ -62,6 +68,13 @@ local function getClosestPlayerInFOV()
 	end
 	return closestPlayer
 end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.KeyCode == Enum.KeyCode.P then
+		teamCheckEnabled = not teamCheckEnabled
+	end
+end)
 
 RunService.RenderStepped:Connect(function()
 	local screenCenter = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
@@ -79,4 +92,3 @@ RunService.RenderStepped:Connect(function()
 		targetText.Text = "Nil"
 	end
 end)
-

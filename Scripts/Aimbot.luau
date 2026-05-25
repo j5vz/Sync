@@ -8,7 +8,7 @@ local camera = Workspace.CurrentCamera
 
 local FOV_RADIUS = 150
 local SMOOTHNESS = 0.4
-local teamCheckEnabled = false
+local aimbotEnabled = false
 
 -- i was actually planning to add a semi-circle hp bar to this but i got lazy as fuck
 local fovCircle = Drawing.new("Circle")
@@ -50,7 +50,7 @@ local function getClosestPlayerInFOV()
 	
 	for _, player in ipairs(Players:GetPlayers()) do
 		if player ~= localPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-			if teamCheckEnabled and player.Team == localPlayer.Team then
+			if player.Team == localPlayer.Team then
 				continue
 			end
 
@@ -72,7 +72,7 @@ end
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if gameProcessed then return end
 	if input.KeyCode == Enum.KeyCode.P then
-		teamCheckEnabled = not teamCheckEnabled
+		aimbotEnabled = not aimbotEnabled
 	end
 end)
 
@@ -80,6 +80,11 @@ RunService.RenderStepped:Connect(function()
 	local screenCenter = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
 	fovCircle.Position = screenCenter
 	targetText.Position = Vector2.new(10, camera.ViewportSize.Y - 25)
+	
+	if not aimbotEnabled then
+		targetText.Text = "Disabled"
+		return
+	end
 	
 	local target = getClosestPlayerInFOV()
 	if target then
